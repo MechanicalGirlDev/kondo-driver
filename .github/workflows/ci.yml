@@ -22,3 +22,5 @@ jobs:
       - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
       - run: cargo test --workspace --all-features
       - run: cargo check -p kondo-ics --no-default-features
+      - name: CLI help without hardware
+        run: cargo run --locked -p kondo-ics-rs485 --bin kondo-ics-cli -- --help
