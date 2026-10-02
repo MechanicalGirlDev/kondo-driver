@@ -1,0 +1,19 @@
+[package]
+name = "kondo-ics"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "no_std protocol crate for Kondo ICS serial servos"
+
+[dependencies]
+
+[dev-dependencies]
+
+[features]
+default = ["std"]
+std = []
+
+[lints]
+workspace = true

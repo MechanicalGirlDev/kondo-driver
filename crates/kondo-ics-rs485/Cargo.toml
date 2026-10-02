@@ -1,0 +1,40 @@
+[package]
+name = "kondo-ics-rs485"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "CLI tool for Kondo ICS servo motor control via RS485"
+
+[lib]
+name = "kondo_ics_rs485"
+path = "src/lib.rs"
+
+[[bin]]
+name = "kondo-ics-cli"
+path = "src/main.rs"
+
+[features]
+# Publishes the in-memory `serial::fake::FakePort` and `IcsSerialPort::from_port` outside
+# this crate's own `cfg(test)`. hs-hal enables it as a dev-dependency: the ICS bus loop lives
+# up there (`hs-hal/src/kondo`), so without this seam its whole hardware path — the per-pass
+# streaming, the batch frame, the calibration jobs — would need a physical RS-485 bus to
+# reach. It pulls in nothing extra; it only widens visibility.
+testing = []
+
+[dependencies]
+# Workspace dependencies
+kondo-ics = { path = "../kondo-ics" }
+
+# CLI
+clap = { version = "4", features = ["derive"] }
+
+# Serial communication
+serialport = "4"
+
+# Error handling
+thiserror = "2"
+
+[lints]
+workspace = true
