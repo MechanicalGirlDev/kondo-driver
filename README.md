@@ -11,6 +11,19 @@ transport and command-line tool.
 The RS-485 crate's `testing` feature exposes its in-memory fake port for
 downstream integration tests.
 
+## Reiny 0.7 integration
+
+Keep `kondo-ics` dependency-free and usable with `no_std`; keep
+`kondo-ics-rs485` responsible for transport and transactions. Neither crate
+declares Reiny ports, and `kondo-ics-cli` is a standalone bring-up tool.
+
+A consuming adapter owns its `main.yaml`, compiled command/feedback types and
+unit conversion. Open its named input/output ports and initialize the RS-485
+bus before `Cloudy::ready()`. On `Cloudy::shutdown()`, complete the application's
+safe-output policy before dropping the transport. Namespace identity belongs
+to the deployment/module path, not the servo address. Use the transport's
+`testing` feature for adapter integration tests without a physical bus.
+
 ## Build and test
 
 Install Rust 1.97 and the platform serial-port build requirements. On Debian or
