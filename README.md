@@ -11,7 +11,7 @@ transport and command-line tool.
 The RS-485 crate's `testing` feature exposes its in-memory fake port for
 downstream integration tests.
 
-## Reiny 0.7 integration
+## Reiny 0.8 integration
 
 Keep `kondo-ics` dependency-free and usable with `no_std`; keep
 `kondo-ics-rs485` responsible for transport and transactions. Neither crate
@@ -23,6 +23,13 @@ bus before `Cloudy::ready()`. On `Cloudy::shutdown()`, complete the application'
 safe-output policy before dropping the transport. Namespace identity belongs
 to the deployment/module path, not the servo address. Use the transport's
 `testing` feature for adapter integration tests without a physical bus.
+
+Use published `reiny = "0.8.0"` and `reiny-build = "0.8.0"` in the adapter,
+not these transport/protocol crates. Its runtime definition and schema
+catalog use `version: 2`. Declare the executable, build and endpoint policies
+in the adapter's own `main.yaml`: input `replay`/`buffer` and output
+`qos`/`retention`. Callers reuse it through `source` and wire inputs with
+`from`, without repeating child outputs.
 
 ## Build and test
 
